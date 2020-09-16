@@ -11,13 +11,16 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateCatDto } from './dto/create-cat.dto';
-
+import { CatsService } from './cats.service'; // 1. 引入service檔
+import { Cat } from './interfaces/cats.interface';
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {} // 2. 透過constructor注入
+
   /* 基本款 */
   @Get()
-  findAll() {
-    return [];
+  findAll(): Array<Object> {
+    return [{ id: 1 }];
   }
 
   /*重新導向的設定*/
@@ -30,6 +33,18 @@ export class CatsController {
       };
     }
   }
+  /*透過service Get*/
+  @Get('serviceFind')
+  async findAll2(): Promise<Cat[]> {
+    return this.catsService.findAll(); // 呼叫service裡面的方法, 並利用非同步回傳
+  }
+
+  /*透過service Post*/
+  @Post('serviceFind')
+  async createIt(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+  }
+
   /*加上路由變數 */
   @Get('/:id')
   findOne(@Req() request: Request): object {
