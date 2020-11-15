@@ -1,14 +1,20 @@
-import { Controller,Get, Post,Body ,Param,Delete, Patch} from '@nestjs/common';
+import { Controller,Get, Post,Body ,Param,Delete, Patch, Query} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.model';
 import {CreateTaskDto} from './dto/create-task.dto'
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 @Controller('tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) { }
   // 要告知使用http的哪一種請求作為decorator，getAllTasks方法才可以被執行=> 加上Get()
   @Get()
-  getAllTasks():Task[] {
-    return this.tasksService.getAllTasks()
+  getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
+    if (Object.keys(filterDto).length === 0) {
+      return this.tasksService.getAllTasks()
+    } else {
+      return this.tasksService.getTasksWithFilters(filterDto)
+    }
+      
   }
 
   @Get('/:id')
