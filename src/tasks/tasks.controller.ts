@@ -12,13 +12,13 @@ export class TasksController {
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id:string) {
+  getTaskById(@Param('id') id:string):Task {
     return this.tasksService.getTaskById(id)
   }
 
   @Delete('/:id')
-  deleteTaskById(@Param('id') id: string) {
-    return this.tasksService.deleteTaskById(id)
+  deleteTask(@Param('id') id: string):void {
+    return this.tasksService.deleteTask(id)
   }
   // 如果透過Body 新增欄位: createTask(@Body('title') title: string)
   @Post()

@@ -14,9 +14,11 @@ export class TasksService {
   getTaskById(id: string):Task{ 
     return this.tasks.find(task=>task.id === id)
   }
-  deleteTaskById(id: string): Task{
-    let index = this.tasks.findIndex(task => task.id === id)
-    return this.tasks.splice(index,1)[0]
+  // "return type = void" means not return 
+  deleteTask(id: string): void{
+    this.tasks = this.tasks.filter(task=>task.id!=id)
+    // let index = this.tasks.findIndex(task => task.id === id)
+    // return this.tasks.splice(index,1)[0]
   }
   createTask(createTaskDto: CreateTaskDto): Task {
     const {title,description} = createTaskDto
