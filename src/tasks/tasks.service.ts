@@ -20,6 +20,7 @@ export class TasksService {
     // let index = this.tasks.findIndex(task => task.id === id)
     // return this.tasks.splice(index,1)[0]
   }
+
   createTask(createTaskDto: CreateTaskDto): Task {
     const {title,description} = createTaskDto
     const task: Task = {
@@ -29,6 +30,12 @@ export class TasksService {
       status: TaskStatus.OPEN
     }
     this.tasks.push(task)
+    return task
+  }
+
+  updateTaskStatus(id: string, status: TaskStatus):Task {
+    let task = this.getTaskById(id);
+    task.status = status;
     return task
   }
 }
