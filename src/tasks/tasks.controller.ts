@@ -1,6 +1,7 @@
 import { Controller,Get, Post,Body } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.model';
+import {CreateTaskDto} from './dto/create-task.dto'
 @Controller('tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) { }
@@ -10,11 +11,11 @@ export class TasksController {
     return this.tasksService.getAllTasks()
   }
 
+  // 如果透過Body 新增欄位: createTask(@Body('title') title: string)
   @Post()
   createTask(
-    @Body('title') title: string,
-    @Body('description') description: string
-    ) {
-    return this.tasksService.createTask(title,description)
+    @Body() createTaskDto: CreateTaskDto
+    ):Task {
+    return this.tasksService.createTask(createTaskDto)
   }
 }
