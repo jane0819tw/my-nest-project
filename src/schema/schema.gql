@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type lesson {
+  id: ID!
+  name: String!
+  startDate: String!
+  endDate: String!
+}
+
+type Query {
+  lesson: lesson!
+  getLessons: [lesson!]!
+}
+
+type Mutation {
+  createLesson(input: CreateUserInput!): lesson!
+}
+
+input CreateUserInput {
+  name: String!
+  startDate: String!
+  endDate: String!
+}
