@@ -6,23 +6,20 @@ import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import {Document} from "mongoose"
 @Schema() // 定義這個class是schema
-@ObjectType('lesson') // graphQL的設定
-export class LessonType extends Document{
+@ObjectType('user') // graphQL的設定
+export class UserType extends Document{
   @Field(type => ID) // graphql 需要
   @Prop() // @porp 定義在Document的屬性
   id: string;
 
   @Field()
   @Prop()
-  name: string;
+  username: string;
 
   @Field()
   @Prop()
-  startDate: string;
+  password: string;
 
-  @Field()
-  @Prop()
-  endDate: string;
 }
 
-export const LessonSchema = SchemaFactory.createForClass(LessonType);
+export const UserSchema = SchemaFactory.createForClass(UserType);
